@@ -34,8 +34,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) {
-		find(obj.getId()); //<------Search for the object in the DB before saving and, if does not exist, throw the exception
-		return repo.save(obj);
+		Categoria newObj =  find(obj.getId()); //<------Search for the object in the DB before saving and, if does not exist, throw the exception
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -61,4 +62,10 @@ public class CategoriaService {
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
 	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
+	}
+
 }
